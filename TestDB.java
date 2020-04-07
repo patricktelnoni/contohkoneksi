@@ -1,4 +1,4 @@
-package com.koneksidatabase;
+package com.company;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,6 +18,7 @@ public class TestDB {
 
     public static void main(String[] args) throws SQLException {
 
+//        TestDB testDB = new TestDB();
         System.out.println("1. Tampilkan data");
         System.out.println("2. Masukan data");
         Scanner keyboard = new Scanner(System.in);
@@ -29,14 +30,9 @@ public class TestDB {
         else{
             masukanData();
         }
-
-
-
-
     }
 
     public static void masukanData() throws SQLException{
-
         System.out.println("Masukan nama");
         Scanner keyboard = new Scanner(System.in);
         String nama = keyboard.next();
@@ -61,5 +57,32 @@ public class TestDB {
             String nim          = resultSet.getString("nim");
             System.out.println(id + " - " + namakaryawan + " - " + nim);
         }
+        System.out.println("Anda mau edit data atau hapus data?");
+        System.out.println("1. Edit data");
+        System.out.println("2. Hapus data");
+        Scanner keyboard = new Scanner(System.in);
+
+
+
+        if(keyboard.nextInt() == 1){
+            System.out.println("Masukan data yang ingin diedit");
+            int id_edit = keyboard.nextInt();
+            System.out.println("Masukan nama");
+            String nama = keyboard.next().toString();
+            System.out.println("Masukan nim");
+            String nim = keyboard.next().toString();
+            System.out.println("Updating");
+            String sql_update = "UPDATE mahasiswa SET nama = '"+nama+"', nim =  '"+nim+"' WHERE id="+id_edit+" ";
+
+            statement.executeUpdate(sql_update);
+        }
+        else{
+            System.out.println("Masukan data yang ingin dihapus");
+            int id_edit = keyboard.nextInt();
+            String sql_delete = "DELETE FROM mahasiswa WHERE id="+id_edit+" ";
+
+            statement.executeUpdate(sql_delete);
+        }
+
     }
 }
